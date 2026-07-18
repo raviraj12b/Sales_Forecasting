@@ -1,0 +1,78 @@
+"""
+data_loader.py
+
+Responsible for ONE thing: reading the three raw Rossmann CSVs into memory and
+validating that their structure matches what the rest of the pipeline expects.
+
+Deliberately does NOT clean, transform, or merge anything -- that is preprocessing.py's
+job (Notebook 02). Keeping "load" and "clean" as separate, single-responsibility
+functions makes each easier to test, debug, and reuse independently. It also means
+the Streamlit dashboard can call load_all() later and get the exact same guarantees
+the notebooks did, without re-implementing validation logic.
+"""
+
+from typing import Tuple
+
+import pandas as pd
+
+from src.config import (
+    EXPECTED_STORE_COLUMNS,
+    EXPECTED_TEST_COLUMNS,
+    EXPECTED_TRAIN_COLUMNS,
+    STORE_FILE,
+    TEST_FILE,
+    TRAIN_FILE,
+)
+
+
+def _validate_columns(df: pd.DataFrame, expected: set, name: str) -> None:
+    """
+    Raise a clear, early error if a dataset's columns don't match expectations.
+
+    Why this matters: without this check, a corrupted download or a wrong file
+    swapped into data/raw/ would fail silently -- possibly not until a KeyError
+    deep inside feature engineering, far from the actual root cause. Failing loudly
+    at load time, with a specific missing-column name, saves real debugging time.
+    """
+    actual = set(df.columns)
+    missing = expected - actual
+    extra = actual - expected
+
+    if missing:
+        raise ValueError(f"{name}: missing expected column(s): {sorted(missing)}")
+    if extra:
+        print(f"Warning - {name}: unexpected extra column(s) found: {sorted(extra)}")
+
+
+def load_train() -> pd.DataFrame:
+    """
+    Load train.csv and validate its schema.
+
+    low_memory=False forces pandas to infer each column's dtype from the entire
+    file at once, rather than chunk-by-chunk. Verified in Notebook 01: for this
+    dataset, that alone is sufficient to prevent the StateHoliday column from
+    being read as a mixed int/string type -- reading with default settings
+    reproduces the mixed-type warning, but low_memory=False resolves it cleanly.
+    """
+    df = pd.read_csv(TRAIN_FILE, low_memory=False)
+    _validate_columns(df, EXPECTED_TRAIN_COLUMNS, "train.csv")
+    return df
+
+
+def load_test() -> pd.DataFrame:
+    """Load test.csv and validate its schema."""
+    df = pd.read_csv(TEST_FILE, low_memory=False)
+    _validate_columns(df, EXPECTED_TEST_COLUMNS, "test.csv")
+    return df
+
+
+def load_store() -> pd.DataFrame:
+    """Load store.csv and validate its schema."""
+    df = pd.read_csv(STORE_FILE)
+    _validate_columns(df, EXPECTED_STORE_COLUMNS, "store.csv")
+    return df
+
+
+def load_all() -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Convenience function: load and validate all three raw datasets at once."""
+    return load_train(), load_test(), load_store()
