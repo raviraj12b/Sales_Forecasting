@@ -1,8 +1,26 @@
-# Sales Forecasting & Business Analytics Platform
+#Sales Forecasting & Business Analytics Platform
 
-> End-to-end Machine Learning system that forecasts retail sales and surfaces
-> business insights through an interactive Streamlit dashboard.
->
+This project is an end-to-end Machine Learning application that forecasts future sales using historical sales data while providing actionable business insights through interactive visualizations and dashboards.
+
+The project follows the complete Data Science lifecycle, including data collection, preprocessing, exploratory data analysis (EDA), feature engineering, predictive modeling, model evaluation, and dashboard development. It is designed as a portfolio-quality project that demonstrates industry-standard practices in machine learning, software engineering, and business analytics.
+
+##Key Features:-
+Historical Sales Data Analysis
+Data Cleaning & Preprocessing
+Exploratory Data Analysis (EDA)
+Feature Engineering
+Machine Learning-Based Sales Forecasting
+Model Evaluation & Performance Metrics
+Business Insights & Recommendations
+Interactive Streamlit Dashboard
+Professional Project Structure
+GitHub-Ready Documentation
+Tech Stack
+Programming Language: Python
+Libraries: Pandas, NumPy, Matplotlib, Plotly, Scikit-learn, Joblib
+Dashboard: Streamlit
+Development Environment: Jupyter Notebook, VS Code
+Version Control: Git & GitHub
 > **Status:** 🚧 Work in progress — built incrementally, phase by phase.
 
 ## Project Overview
