@@ -16,6 +16,7 @@ from typing import Tuple
 import pandas as pd
 
 from src.config import (
+    CLEANED_DATA_FILE,
     EXPECTED_STORE_COLUMNS,
     EXPECTED_TEST_COLUMNS,
     EXPECTED_TRAIN_COLUMNS,
@@ -76,3 +77,20 @@ def load_store() -> pd.DataFrame:
 def load_all() -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Convenience function: load and validate all three raw datasets at once."""
     return load_train(), load_test(), load_store()
+
+
+def load_cleaned_data() -> pd.DataFrame:
+    """
+    Load the cleaned/merged dataset produced by Notebook 02.
+
+    IMPORTANT: uses low_memory=False and explicit Date parsing deliberately.
+    Verified while building Notebook 03: even though StateHoliday was a clean,
+    consistent string type in memory when Notebook 02 saved this file, CSVs
+    don't preserve pandas dtype metadata -- reading it back with default
+    settings silently reintroduces the exact same mixed int/string bug from
+    Notebook 01, because pandas re-infers types from scratch on every read.
+    This function exists so every notebook from here on reads the cleaned data
+    safely by default, instead of relying on everyone remembering the flag.
+    """
+    df = pd.read_csv(CLEANED_DATA_FILE, low_memory=False, parse_dates=["Date"])
+    return df
