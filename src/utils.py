@@ -26,3 +26,16 @@ def missing_report(df: pd.DataFrame, name: str = "") -> pd.DataFrame:
     print()
 
     return report
+
+
+def save_chart(fig, filename: str, charts_dir) -> None:
+    """
+    Save a matplotlib figure to the outputs/charts/ directory as a PNG.
+
+    Centralizing this (rather than repeating fig.savefig(...) in every EDA cell)
+    means the DPI, format, and bounding-box settings only need to be decided once.
+    """
+    charts_dir.mkdir(parents=True, exist_ok=True)
+    filepath = charts_dir / filename
+    fig.savefig(filepath, dpi=150, bbox_inches="tight")
+    print(f"Saved chart: {filepath.name}")
