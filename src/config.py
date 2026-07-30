@@ -33,6 +33,9 @@ STORE_FILE = DATA_RAW_DIR / "store.csv"
 # --- Processed output (created in Notebook 02) ---
 CLEANED_DATA_FILE = DATA_PROCESSED_DIR / "cleaned_sales_data.csv"
 
+# --- Feature-engineered output (created in Notebook 04) ---
+FEATURED_DATA_FILE = DATA_PROCESSED_DIR / "featured_sales_data.csv"
+
 # --- Expected schemas ---
 # Used by data_loader.py to catch a corrupted/mismatched download early and loudly,
 # instead of failing confusingly three steps later in feature engineering.
