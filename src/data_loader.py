@@ -20,6 +20,7 @@ from src.config import (
     EXPECTED_STORE_COLUMNS,
     EXPECTED_TEST_COLUMNS,
     EXPECTED_TRAIN_COLUMNS,
+    FEATURED_DATA_FILE,
     STORE_FILE,
     TEST_FILE,
     TRAIN_FILE,
@@ -93,4 +94,16 @@ def load_cleaned_data() -> pd.DataFrame:
     safely by default, instead of relying on everyone remembering the flag.
     """
     df = pd.read_csv(CLEANED_DATA_FILE, low_memory=False, parse_dates=["Date"])
+    return df
+
+
+def load_featured_data() -> pd.DataFrame:
+    """
+    Load the feature-engineered dataset produced by Notebook 04.
+
+    Same low_memory=False + explicit Date parsing as load_cleaned_data(), for
+    the identical reason: CSVs don't preserve dtype metadata, so every fresh
+    read needs to guard against StateHoliday's mixed-type re-emergence.
+    """
+    df = pd.read_csv(FEATURED_DATA_FILE, low_memory=False, parse_dates=["Date"])
     return df
