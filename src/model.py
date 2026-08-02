@@ -79,13 +79,23 @@ def encode_features(train_df: pd.DataFrame, val_df: pd.DataFrame) -> Tuple[pd.Da
     One-hot encode the categorical features, fit on TRAIN only, then align the
     validation set onto the exact same columns.
 
+    Uses drop_first=True deliberately: without it, every category of a feature
+    gets its own dummy column, which sums to 1 for every row -- perfectly
+    collinear with the model's intercept (the classic "dummy variable trap").
+    This doesn't meaningfully hurt prediction accuracy for either model, but it
+    does make Linear Regression's individual coefficients uninterpretable
+    (their split across the redundant categories isn't uniquely determined).
+    Dropping one category per feature gives every remaining coefficient a
+    clean, standard reading: "the effect of this category, relative to the
+    dropped baseline category, holding other features constant."
+
     Fitting on train and reindexing validation (rather than one-hot encoding
     the combined data) guards against the validation set silently introducing
     categories the model never trained on, or the two sets ending up with
     mismatched column sets/order -- both of which would break prediction.
     """
-    train_encoded = pd.get_dummies(train_df, columns=CATEGORICAL_FEATURES)
-    val_encoded = pd.get_dummies(val_df, columns=CATEGORICAL_FEATURES)
+    train_encoded = pd.get_dummies(train_df, columns=CATEGORICAL_FEATURES, drop_first=True)
+    val_encoded = pd.get_dummies(val_df, columns=CATEGORICAL_FEATURES, drop_first=True)
 
     dummy_cols = [c for c in train_encoded.columns
                   if any(c.startswith(cat + "_") for cat in CATEGORICAL_FEATURES)]
