@@ -1,0 +1,6 @@
+Final model: Random Forest (models/random_forest.pkl)
+Validation MAE: 704.0
+Validation RMSE: 1019.1
+Validation R2: 0.8887
+Feature columns (34): see src/model.py NUMERIC_FEATURES + CATEGORICAL_FEATURES
+Selected because it outperforms Linear Regression on every metric (MAE, MSE, RMSE, R2).
