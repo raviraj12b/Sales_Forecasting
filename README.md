@@ -1,26 +1,8 @@
-#Sales Forecasting & Business Analytics Platform
+# Sales Forecasting & Business Analytics Platform
 
-This project is an end-to-end Machine Learning application that forecasts future sales using historical sales data while providing actionable business insights through interactive visualizations and dashboards.
-
-The project follows the complete Data Science lifecycle, including data collection, preprocessing, exploratory data analysis (EDA), feature engineering, predictive modeling, model evaluation, and dashboard development. It is designed as a portfolio-quality project that demonstrates industry-standard practices in machine learning, software engineering, and business analytics.
-
-##Key Features:-
-Historical Sales Data Analysis
-Data Cleaning & Preprocessing
-Exploratory Data Analysis (EDA)
-Feature Engineering
-Machine Learning-Based Sales Forecasting
-Model Evaluation & Performance Metrics
-Business Insights & Recommendations
-Interactive Streamlit Dashboard
-Professional Project Structure
-GitHub-Ready Documentation
-Tech Stack
-Programming Language: Python
-Libraries: Pandas, NumPy, Matplotlib, Plotly, Scikit-learn, Joblib
-Dashboard: Streamlit
-Development Environment: Jupyter Notebook, VS Code
-Version Control: Git & GitHub
+> End-to-end Machine Learning system that forecasts retail sales and surfaces
+> business insights through an interactive Streamlit dashboard.
+>
 > **Status:** 🚧 Work in progress — built incrementally, phase by phase.
 
 ## Project Overview
@@ -64,6 +46,7 @@ Sales-Forecasting/
 ├── dashboard/          # Streamlit application
 ├── models/              # Trained model artifacts (gitignored)
 ├── outputs/            # Predictions, charts, reports (gitignored)
+├── docs/                # Architecture and planning documentation
 ├── screenshots/        # Dashboard screenshots for this README
 ├── requirements.txt
 ├── .gitignore
@@ -88,13 +71,13 @@ _To be added as modules are completed._
 ## Roadmap
 
 - [x] Project scaffolding & environment setup
-- [ ] Data understanding & cleaning
-- [ ] Exploratory Data Analysis (10+ business-driven visualizations)
-- [ ] Feature engineering
-- [ ] Model training (Linear Regression, Random Forest, XGBoost, LightGBM)
-- [ ] Model evaluation & comparison
-- [ ] Forecast generation
-- [ ] Streamlit dashboard
+- [x] Data understanding & cleaning
+- [x] Exploratory Data Analysis (12 business-driven visualizations)
+- [x] Feature engineering (with leakage audit)
+- [x] Model training (Linear Regression, Random Forest)
+- [x] Model evaluation & comparison
+- [x] Forecast generation (recursive vs. frozen-history, backtested)
+- [x] Streamlit dashboard
 - [ ] Screenshots & final documentation polish
 
 ## License

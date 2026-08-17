@@ -1,0 +1,20 @@
+[theme]
+base = "dark"
+primaryColor = "#E8A33D"
+backgroundColor = "#0B0E14"
+secondaryBackgroundColor = "#141926"
+textColor = "#E8EAED"
+linkColor = "#E8A33D"
+borderColor = "#262C3A"
+dataframeBorderColor = "#262C3A"
+dataframeHeaderBackgroundColor = "#141926"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "small"
+buttonRadius = "small"
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+headingFont = "Space Grotesk:https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap"
+codeFont = "JetBrains Mono:https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+
+[server]
+headless = true
