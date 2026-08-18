@@ -83,6 +83,17 @@ st.markdown(f"""
 html, body, [class*="css"] {{
     font-family: 'Inter', sans-serif;
 }}
+[data-testid="stAppViewContainer"] {{
+    background-color: {BG};
+    color: {TEXT_PRIMARY};
+}}
+[data-testid="stHeader"] {{
+    background-color: {BG};
+}}
+[data-testid="stMain"] p, [data-testid="stMain"] span, [data-testid="stMain"] label,
+[data-testid="stMain"] li {{
+    color: {TEXT_PRIMARY};
+}}
 h1, h2, h3, h4, h5, h6 {{
     font-family: 'Space Grotesk', sans-serif !important;
     font-weight: 600 !important;
@@ -92,7 +103,11 @@ footer {{ visibility: hidden; }}
 
 /* ---------- sidebar ---------- */
 section[data-testid="stSidebar"] {{
+    background-color: {PANEL_BG};
     border-right: 1px solid {BORDER};
+}}
+section[data-testid="stSidebar"] p, section[data-testid="stSidebar"] span {{
+    color: {TEXT_PRIMARY};
 }}
 .brand-block {{ padding: 0.2rem 0 1.1rem 0; }}
 .brand-title {{
@@ -659,7 +674,8 @@ def render_data():
                 if report.empty:
                     st.success("No missing values in the cleaned dataset.")
                 else:
-                    st.dataframe(report, width="stretch", hide_index=True)
+                    display_report = report.reset_index().rename(columns={"index": "Column"})
+                    st.dataframe(display_report, width="stretch", hide_index=True)
                 st.caption(
                     "Remaining gaps in `Promo2SinceWeek/Year` and `PromoInterval` are structurally "
                     "'not applicable' when `Promo2 == 0` — not data quality defects."
@@ -831,7 +847,9 @@ def render_machine_learning():
 
     with col_a:
         name_lower = importances.index.str.lower()
-        lag_share = importances[name_lower.str.contains("lag") | name_lower.str.contains("roll")].sum() / importances.sum() * 100
+        lag_share = importances[
+            name_lower.str.contains("roll") | name_lower.str.contains("prev")
+        ].sum() / importances.sum() * 100
         promo_share = importances[name_lower.str.contains("promo")].sum() / importances.sum() * 100
         comp_share = importances[name_lower.str.contains("competition")].sum() / importances.sum() * 100
         explanation_parts = []
